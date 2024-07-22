@@ -2,6 +2,7 @@
 
 Developed by M.Kiran Varma
 
+Note : "MOST IMPORANT THING IS WHILE WORKING WITH TAILWIND CSS, TO GO WITH MOBILE FIRST APPROACH"
 
 To create weather forecast application, these were the
 
