@@ -23,6 +23,11 @@
     border-sky-200  
     bg-gradient-to-r from-cyan-700 to-blue-500
     rounded-3xl
+    hidden
+}
+
+.displayOutputData{
+    @apply block;
 }
 
 .para{
