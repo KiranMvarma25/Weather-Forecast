@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button{
+    @apply 
+    bg-sky-700 
+    text-white 
+    font-serif 
+    rounded-md 
+    hover:italic 
+    hover:bg-sky-900 
+    active:font-serif 
+    active:bg-black 
+    p-1 
+    mt-2
+}
+
+.outputData{
+    @apply 
+    w-80 
+    border-2 
+    border-sky-200  
+    bg-gradient-to-r from-cyan-700 to-blue-500
+    rounded-3xl
+}
+
+.para{
+    @apply 
+    p-3 
+    text-center
+    text-white
+    font-mono
+}
