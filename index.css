@@ -42,10 +42,23 @@
 .parentDropDown{
    @apply
     h-32
-    w-40
-    bg-white
-    overflow-scroll
+    w-44
+    bg-sky-600
+    overflow-y-scroll
+    scrollbar-thin
+    scrollbar-thumb-blue-200
+    scrollbar-track-transparent
     hidden
+}
+
+.childDropDown{
+    @apply
+    font-normal
+    p-0.5
+    pl-1.5
+    font-mono
+    hover:bg-sky-700
+    text-white 
 }
 
 .displayParent{
