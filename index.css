@@ -27,7 +27,12 @@
 }
 
 .displayOutputData{
-    @apply block;
+    @apply block
+    text-white
+    text-center
+    p-2
+    font-mono
+    font-bold
 }
 
 .para{
