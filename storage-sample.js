@@ -27,5 +27,14 @@ document.querySelector('button').addEventListener('click',function (event) {
         let value = localStorage.getItem('City Name');
         child.innerHTML = value;
     }
+    inputValues.value='';
     parent.appendChild(child);
+    parent.style.display = 'none';
+    parent.classList.add('parentDropDown');
 })
+
+inputValues.addEventListener('click', function(event) {
+    event.preventDefault();
+    parent.style.display = 'block';
+})
+
