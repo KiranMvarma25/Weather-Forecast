@@ -167,13 +167,26 @@ function displayWeatherInfo(data){                // weatherData or data has all
     outputData.textContent = '';
     outputData.classList.add('displayOutputData');
 
+
+    const date = new Date();                                // To display current date.
+    const day = date.getDay();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    console.log(`${day} - ${month} - ${year}`);
+    // const dayMonthYearChild = document.createElement('p');
+    // dayMonthYearChild.innerHTML = `${day}-${month}-${year}`;
+    // outputData.classList.add('para');
+    // outputData.appendChild(dayMonthYearChild);
+
+    
+    
     const cityDisplay = document.createElement('h1');
     const tempDisplay = document.createElement('p');
     const humidityDisplay = document.createElement('p');
     const descDisplay = document.createElement('p');
     const weatherEmoji = document.createElement('p');
 
-    cityDisplay.textContent = city;
+    cityDisplay.textContent = `${city} (${day}-${month}-${year})`;
     tempDisplay.textContent = `Temperature : ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
     descDisplay.textContent = description;
@@ -191,8 +204,6 @@ function displayWeatherInfo(data){                // weatherData or data has all
     outputData.appendChild(descDisplay);
     outputData.appendChild(weatherEmoji);    
 }
-
-
 
 
 
@@ -235,3 +246,4 @@ function displayError(message) {                            // Invokes the funct
     outputData.classList.add('displayOutputData');
     outputData.appendChild(errorMessage);
 }
+
