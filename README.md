@@ -40,3 +40,5 @@ key points :
 11. Created an drop down (for seeing history data we entered) and got updated the drop down with the help of Local storage.
 
 12. If clicked on the city name on drop down, data will be changed according to the value clicked.
+
+13. Added suitable and appropriate errors such as Empty Search and Invalid City Name.
