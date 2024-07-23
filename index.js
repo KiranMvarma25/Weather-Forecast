@@ -71,11 +71,15 @@ form.addEventListener('submit', async event =>  {
         }
         catch(error){
             console.log(error);
-            displayError(error);
+            displayError("Enter a Valid City Name...");
+            if(!error)
+                displayError(error);
         }
     }
-    else {
-        displayError("Please Enter a Valid City Name...");                         // If city name was not entered, invokes the displayError function.
+    else{
+        if(cityInput.value === ''){
+            displayError("Enter a City Name...");                         // If city name was not entered, invokes the displayError function.
+        }
     }
 
 
@@ -91,7 +95,10 @@ form.addEventListener('submit', async event =>  {
     parent.classList.add('parentDropDown');
     parent.appendChild(child);
     
-    dropdownData();                                         // City name invocation is coded here to display after the data is added, intially not to display the empty dropdown.          
+    if(city != ''){                                              // If empty is entered dropdown is not created.
+        dropdownData();                                         // City name invocation is coded here to display after the data is added, intially not to display the empty dropdown.          
+    }
+
     useSearchedDropDownCity(child);                         // After the city names entered into the dropdown History, this function helps use us to have the access of searching the data there itself without being reentering the data.
 });
 
@@ -99,7 +106,9 @@ form.addEventListener('submit', async event =>  {
 function dropdownData() {                                   // Entered city name will be shown in dropdown for entering / clicking  each time.
     cityInput.addEventListener('click', function(event) {
         event.preventDefault();
+    
         parent.classList.add('displayParent');
+        
     })
 }
 
@@ -116,7 +125,7 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
             cityInput.value='';
         } catch (error) {
             console.log(error);
-            displayError(error);
+            displayError("Enter a Valid City Name...");
         }
 
     })
