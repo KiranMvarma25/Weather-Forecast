@@ -36,3 +36,7 @@ key points :
     Initially created a variable name as an object assigned it to an argument and we need only some data that fetched from API.
 
 10. Seperate function is created for display an emoji to show how the weather was with the help of Id from API.
+
+11. Created an drop down (for seeing history data we entered) and got updated the drop down with the help of Local storage.
+
+12. If clicked on the city name on drop down, data will be changed according to the value clicked.
