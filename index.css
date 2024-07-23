@@ -37,3 +37,18 @@
     text-white
     font-mono
 }
+
+
+.parentDropDown{
+   @apply
+    h-32
+    w-40
+    bg-white
+    overflow-scroll
+    hidden
+}
+
+.displayParent{
+    @apply
+     block
+}
