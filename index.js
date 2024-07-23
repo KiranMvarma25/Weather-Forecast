@@ -74,30 +74,51 @@ form.addEventListener('submit', async event =>  {
             displayError(error);
         }
     }
-    // else {
-    //     displayError("Please Enter a City");                         // If city name was not entered, invokes the displayError function.
-    // }
-
-
-    let child = document.createElement('p');
-    for(let i=1; i<10; i++){
-        localStorage.setItem('City Name',cityInput.value);
-        let value = localStorage.getItem('City Name');
-        child.innerHTML = value;
+    else {
+        displayError("Please Enter a Valid City Name...");                         // If city name was not entered, invokes the displayError function.
     }
+
+
+    let child = document.createElement('p');                          
+    localStorage.setItem('City Name',cityInput.value);               // Localstorge is used to set the value with cityInput.value.
+    let value = localStorage.getItem('City Name');                   // Getitem is used to extract the value from the localstorage of the browser.
+    child.innerHTML = value;
+    console.log(value);                                              // Can verify the entered city name in console.
+    
     
     cityInput.value='';
+    child.classList.add('childDropDown')
     parent.classList.add('parentDropDown');
     parent.appendChild(child);
     
-    dropdownData();
+    dropdownData();                                         // City name invocation is coded here to display after the data is added, intially not to display the empty dropdown.          
+    useSearchedDropDownCity(child);                         // After the city names entered into the dropdown History, this function helps use us to have the access of searching the data there itself without being reentering the data.
 });
 
 
-function dropdownData() {
+function dropdownData() {                                   // Entered city name will be shown in dropdown for entering / clicking  each time.
     cityInput.addEventListener('click', function(event) {
         event.preventDefault();
         parent.classList.add('displayParent');
+    })
+}
+
+function useSearchedDropDownCity(child) {                   // With this, if we click on the data from dropdown (history) it will go to the input field,cleared and it will shows the clicked data from dropdown history.
+    child.addEventListener('click', async function(event) {
+        event.preventDefault();
+
+        const city = child.innerHTML;
+        cityInput.value = city;
+
+        try {                                               // We may or may not use this block, if we not use this block, functionality will be --> clicking on dropdown history data, sends the value to the input and clicking on button it will gives the weather data.
+            const weatherData = await getWeatherData(city); // Simple trick is that we are using this functions again to get the output immediately. Like the previous point.
+            displayWeatherInfo(weatherData);
+            cityInput.value='';
+        } catch (error) {
+            console.log(error);
+            displayError(error);
+        }
+
     })
 }
 
