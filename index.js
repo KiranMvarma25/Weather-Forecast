@@ -56,12 +56,13 @@ const form = document.querySelector('form');
 const cityInput = document.querySelector(".cityInput");
 const outputData = document.getElementById("outputData");
 const API = "078092d86e224e14a642a355262f0195";
+const parent = document.getElementById('parent');
 
 
 
 form.addEventListener('submit', async event =>  {
     event.preventDefault();                                          // Displays the output, if we not use this, data will be displayed only for a 0.01sec.
-    const city = cityInput.value;
+    const city = cityInput.value;    
     
     if(city){
         try{
@@ -73,10 +74,33 @@ form.addEventListener('submit', async event =>  {
             displayError(error);
         }
     }
-    else {
-        displayError("Please Enter a City");                         // If city name was not entered, invokes the displayError function.
+    // else {
+    //     displayError("Please Enter a City");                         // If city name was not entered, invokes the displayError function.
+    // }
+
+
+    let child = document.createElement('p');
+    for(let i=1; i<10; i++){
+        localStorage.setItem('City Name',cityInput.value);
+        let value = localStorage.getItem('City Name');
+        child.innerHTML = value;
     }
+    
+    cityInput.value='';
+    parent.classList.add('parentDropDown');
+    parent.appendChild(child);
+    
+    dropdownData();
 });
+
+
+function dropdownData() {
+    cityInput.addEventListener('click', function(event) {
+        event.preventDefault();
+        parent.classList.add('displayParent');
+    })
+}
+
 
 
 
