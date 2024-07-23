@@ -1,4 +1,4 @@
-// Worked on this project nearly for 10 days, also created another weather app(weather for that day), not a forecast one.
+// Worked on this project nearly for 10 days before starting this Main One, also created another weather app(weather for that day), not a forecast one.
 // Practiced on async functions.
 // Revised tailwind CSS and GIT.
 // Worked on this fetch and on api.
