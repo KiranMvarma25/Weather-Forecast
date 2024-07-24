@@ -57,6 +57,7 @@ const cityInput = document.querySelector(".cityInput");
 const outputData = document.getElementById("outputData");
 const API = "078092d86e224e14a642a355262f0195";
 const parent = document.getElementById('parent');
+const outputForecastData = document.getElementById('outputForecastData');
 
 
 form.addEventListener('submit', async event =>  {
@@ -67,8 +68,8 @@ form.addEventListener('submit', async event =>  {
         try{
             const weatherData = await getWeatherData(city);          // City has been taken here and passed to a variable.
             displayWeatherInfo(weatherData);                         // That variable has been passed to displayWeatherInfo function.
-            const forecastData = await getForecastData(city);
-            displayForecastInfo(forecastData);
+            const forecastData = await getForecastData(city);4       // Fetching 5 day Forecast weather data.
+            displayForecastInfo(forecastData);                       // Displaying 5 day Forecast weather data.
         }
         catch(error){
             console.log(error);
@@ -152,8 +153,8 @@ async function getWeatherData(city) {
 
 
 async function getForecastData(city){
-    const API = "078092d86e224e14a642a355262f0195";
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`
+    const API = "078092d86e224e14a642a355262f0195";                                             // Key of Url
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`    // Url of 5 day Forecast Data.
     const response = await fetch(apiUrl);
     if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
         throw new Error("Could not fetch weather data");
@@ -203,7 +204,7 @@ function displayWeatherInfo(data){                // weatherData or data has all
     humidityDisplay.classList.add('para');
     descDisplay.classList.add('para');
     weatherEmoji.classList.add('para');
-
+    
 
     outputData.appendChild(cityDisplay);
     outputData.appendChild(tempDisplay);
@@ -216,19 +217,18 @@ function displayWeatherInfo(data){                // weatherData or data has all
 
 function displayForecastInfo(data) {
     console.log(data);
-    outputForecastData.textContent = '';          // Clear previous forecast data
+    outputForecastData.textContent = '';          // Clear previous forecast data.
 
-    const forecastList = data.list;
+    const forecastList = data.list;               // Extracting the forecast list.
 
-    for(let i = 0; i < forecastList.length; i += 8) {
-        const forecast = forecastList[i];
-        const date = new Date(forecast.dt_txt);
+    for(let i = 0; i < forecastList.length; i += 8) {  // i+=8, bcoz data is provided for 3 hours, 24 hours per day divide we will get 8 hours.
+        const forecast = forecastList[i];              // It increements for next day.             
+        const date = new Date(forecast.dt_txt);        // dt = date and time.        
 
-        const { main: { temp, humidity },                 
-                weather: [{ description, id }] } = forecast;
+        const { main: { temp, humidity },                           // So we had created an object type Variable.
+                weather: [{ description, id }] } = forecast;        // We need to get the correct object names first of all by fetching the data and to observe the names of the object for Example {city:New York}.
 
-        const forecastDaily = document.createElement('div');
-        forecastDaily.classList.add('forecastCard');
+        const forecastDaily = document.createElement('div');        // Creating parent for 5 day forecast child.
 
         const dateDisplay = document.createElement('p');
         const tempDisplay = document.createElement('p');
@@ -257,9 +257,7 @@ function displayForecastInfo(data) {
         outputForecastData.appendChild(forecastDaily);
 
     }
-
-
-
+    
 }
 
 
