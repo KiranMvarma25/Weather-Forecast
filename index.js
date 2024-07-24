@@ -59,7 +59,6 @@ const API = "078092d86e224e14a642a355262f0195";
 const parent = document.getElementById('parent');
 
 
-
 form.addEventListener('submit', async event =>  {
     event.preventDefault();                                          // Displays the output, if we not use this, data will be displayed only for a 0.01sec.
     const city = cityInput.value;    
@@ -68,6 +67,8 @@ form.addEventListener('submit', async event =>  {
         try{
             const weatherData = await getWeatherData(city);          // City has been taken here and passed to a variable.
             displayWeatherInfo(weatherData);                         // That variable has been passed to displayWeatherInfo function.
+            const forecastData = await getForecastData(city);
+            displayForecastInfo(forecastData);
         }
         catch(error){
             console.log(error);
@@ -112,6 +113,7 @@ function dropdownData() {                                   // Entered city name
     })
 }
 
+
 function useSearchedDropDownCity(child) {                   // With this, if we click on the data from dropdown (history) it will go to the input field,cleared and it will shows the clicked data from dropdown history.
     child.addEventListener('click', async function(event) {
         event.preventDefault();
@@ -122,6 +124,8 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
         try {                                               // We may or may not use this block, if we not use this block, functionality will be --> clicking on dropdown history data, sends the value to the input and clicking on button it will gives the weather data.
             const weatherData = await getWeatherData(city); // Simple trick is that we are using this functions again to get the output immediately. Like the previous point.
             displayWeatherInfo(weatherData);
+            const forecastData = await getForecastData(city);
+            displayForecastInfo(forecastData);
             cityInput.value='';
         } catch (error) {
             console.log(error);
@@ -130,8 +134,6 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
 
     })
 }
-
-
 
 
 
@@ -149,8 +151,14 @@ async function getWeatherData(city) {
 
 
 
-async function getForecastData(){
-
+async function getForecastData(city){
+    const API = "078092d86e224e14a642a355262f0195";
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`
+    const response = await fetch(apiUrl);
+    if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
+        throw new Error("Could not fetch weather data");
+    }
+    return await response.json();   
 }
 
 
@@ -172,12 +180,10 @@ function displayWeatherInfo(data){                // weatherData or data has all
     const day = date.getDay();
     const month = date.getMonth();
     const year = date.getFullYear();
-    console.log(`${day} - ${month} - ${year}`);
+    
     // const dayMonthYearChild = document.createElement('p');
-    // dayMonthYearChild.innerHTML = `${day}-${month}-${year}`;
+    // dayMonthYearChild.textContent = `${day}-${month}-${year}`;
     // outputData.classList.add('para');
-    // outputData.appendChild(dayMonthYearChild);
-
     
     
     const cityDisplay = document.createElement('h1');
@@ -187,7 +193,7 @@ function displayWeatherInfo(data){                // weatherData or data has all
     const weatherEmoji = document.createElement('p');
 
     cityDisplay.textContent = `${city} (${day}-${month}-${year})`;
-    tempDisplay.textContent = `Temperature : ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
+    tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
     descDisplay.textContent = description;
     weatherEmoji.textContent = getWeatherEmoji(id);         // Here getWeatherEmoji function is invoked to display emoji.
@@ -198,6 +204,7 @@ function displayWeatherInfo(data){                // weatherData or data has all
     descDisplay.classList.add('para');
     weatherEmoji.classList.add('para');
 
+
     outputData.appendChild(cityDisplay);
     outputData.appendChild(tempDisplay);
     outputData.appendChild(humidityDisplay);
@@ -207,7 +214,51 @@ function displayWeatherInfo(data){                // weatherData or data has all
 
 
 
-function displayForecastInfo() {
+function displayForecastInfo(data) {
+    console.log(data);
+    outputForecastData.textContent = '';          // Clear previous forecast data
+
+    const forecastList = data.list;
+
+    for(let i = 0; i < forecastList.length; i += 8) {
+        const forecast = forecastList[i];
+        const date = new Date(forecast.dt_txt);
+
+        const { main: { temp, humidity },                 
+                weather: [{ description, id }] } = forecast;
+
+        const forecastDaily = document.createElement('div');
+        forecastDaily.classList.add('forecastCard');
+
+        const dateDisplay = document.createElement('p');
+        const tempDisplay = document.createElement('p');
+        const humidityDisplay = document.createElement('p');
+        const descDisplay = document.createElement('p');
+        const weatherEmoji = document.createElement('p');
+
+        dateDisplay.textContent = date.toLocaleDateString();
+        tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
+        humidityDisplay.textContent = `Humidity: ${humidity}%`;
+        descDisplay.textContent = description;
+        weatherEmoji.textContent = getWeatherEmoji(id);         // Here getWeatherEmoji function is invoked to display emoji.
+
+        dateDisplay.classList.add('para');
+        tempDisplay.classList.add('para');
+        humidityDisplay.classList.add('para');
+        descDisplay.classList.add('para');
+        weatherEmoji.classList.add('para');
+
+        forecastDaily.appendChild(dateDisplay);
+        forecastDaily.appendChild(tempDisplay);
+        forecastDaily.appendChild(humidityDisplay);
+        forecastDaily.appendChild(descDisplay);
+        forecastDaily.appendChild(weatherEmoji);
+
+        outputForecastData.appendChild(forecastDaily);
+
+    }
+
+
 
 }
 
@@ -246,4 +297,3 @@ function displayError(message) {                            // Invokes the funct
     outputData.classList.add('displayOutputData');
     outputData.appendChild(errorMessage);
 }
-
