@@ -70,3 +70,18 @@
     @apply
      block
 }
+
+
+.forecastParent{
+    @apply
+     mt-10
+}
+
+.forecastPara{
+    @apply
+    p-3 
+    text-center
+    text-white
+    font-mono
+    bg-sky-700
+}
