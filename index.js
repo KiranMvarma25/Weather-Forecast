@@ -55,7 +55,7 @@
 const form = document.querySelector('form');
 const cityInput = document.querySelector(".cityInput");
 const outputData = document.getElementById("outputData");
-const API = "078092d86e224e14a642a355262f0195";
+// const API = "078092d86e224e14a642a355262f0195";
 const parent = document.getElementById('parent');
 const outputForecastData = document.getElementById('outputForecastData');
 
@@ -140,6 +140,7 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
 
 
 async function getWeatherData(city) {
+    const API = "078092d86e224e14a642a355262f0195";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}`;   // City passed an argument to this function, city and key is paased into this url and it fetches all the data.
     const response = await fetch(apiUrl);
     if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
@@ -153,8 +154,10 @@ async function getWeatherData(city) {
 
 
 async function getForecastData(city){
-    const API = "078092d86e224e14a642a355262f0195";                                             // Key of Url
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`    // Url of 5 day Forecast Data.
+   
+    const API = "078092d86e224e14a642a355262f0195";                                            // Key of Url
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`;    // Url of 5 day Forecast Data.
+   
     const response = await fetch(apiUrl);
     if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
         throw new Error("Could not fetch weather data");
@@ -178,8 +181,8 @@ function displayWeatherInfo(data){                // weatherData or data has all
 
 
     const date = new Date();                                // To display current date.
-    const day = date.getDay();
-    const month = date.getMonth();
+    const _date = date.getDate();
+    const month = date.getMonth() + 1;                      // I had used + 1, bcoz it is showing last month.
     const year = date.getFullYear();
     
     // const dayMonthYearChild = document.createElement('p');
@@ -193,7 +196,7 @@ function displayWeatherInfo(data){                // weatherData or data has all
     const descDisplay = document.createElement('p');
     const weatherEmoji = document.createElement('p');
 
-    cityDisplay.textContent = `${city} (${day}-${month}-${year})`;
+    cityDisplay.textContent = `${city} (${_date}-${month}-${year})`;
     tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
     descDisplay.textContent = description;
@@ -215,13 +218,16 @@ function displayWeatherInfo(data){                // weatherData or data has all
 
 
 
+
 function displayForecastInfo(data) {
     console.log(data);
     outputForecastData.textContent = '';          // Clear previous forecast data.
 
     const forecastList = data.list;  // Extracting the forecast list.
-
-    for(let i = 0; i < forecastList.length; i += 8) {  // i+=8, bcoz data is provided for 3 hours, 24 hours per day divide we will get 8 hours.
+                                                        // Coorection is that i starts from 8, if not it prints current day weather data again.
+// As the task is stating to display forecast of any time of that time.
+// For every 3 hours it will update the data 8(present day) + 7 (21 hours of next day) = prints next day weather.
+    for(let i = 8; i < forecastList.length; i += 7) {  // i+=8, bcoz data is provided for 3 hours, 24 hours per day divide we will get 8 hours.
         const forecast = forecastList[i];              // It increements for next day.             
         const date = new Date(forecast.dt_txt);        // dt = date and time.        
 
