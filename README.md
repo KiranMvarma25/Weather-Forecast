@@ -42,3 +42,12 @@ key points :
 12. If clicked on the city name on drop down, data will be changed according to the value clicked.
 
 13. Added suitable and appropriate errors such as Empty Search and Invalid City Name.
+
+14. Added 5 Day Forecast Weather report with the help of forecast api and it's key, used a loop.
+
+15. By default Forecast Api provides data upto 5 days, as they mentioned "You can search weather forecast for 5 days with data every 3 hours by 
+     geographic coordinates. All weather data can be obtained in JSON and XML formats."
+
+16. We need to set the condition according to it.
+
+17. Added styles to the Forecast Data.
