@@ -219,7 +219,7 @@ function displayForecastInfo(data) {
     console.log(data);
     outputForecastData.textContent = '';          // Clear previous forecast data.
 
-    const forecastList = data.list;               // Extracting the forecast list.
+    const forecastList = data.list;  // Extracting the forecast list.
 
     for(let i = 0; i < forecastList.length; i += 8) {  // i+=8, bcoz data is provided for 3 hours, 24 hours per day divide we will get 8 hours.
         const forecast = forecastList[i];              // It increements for next day.             
@@ -229,6 +229,7 @@ function displayForecastInfo(data) {
                 weather: [{ description, id }] } = forecast;        // We need to get the correct object names first of all by fetching the data and to observe the names of the object for Example {city:New York}.
 
         const forecastDaily = document.createElement('div');        // Creating parent for 5 day forecast child.
+        forecastDaily.classList.add('forecastParent');
 
         const dateDisplay = document.createElement('p');
         const tempDisplay = document.createElement('p');
@@ -242,11 +243,11 @@ function displayForecastInfo(data) {
         descDisplay.textContent = description;
         weatherEmoji.textContent = getWeatherEmoji(id);         // Here getWeatherEmoji function is invoked to display emoji.
 
-        dateDisplay.classList.add('para');
-        tempDisplay.classList.add('para');
-        humidityDisplay.classList.add('para');
-        descDisplay.classList.add('para');
-        weatherEmoji.classList.add('para');
+        dateDisplay.classList.add('forecastPara');
+        tempDisplay.classList.add('forecastPara');
+        humidityDisplay.classList.add('forecastPara');
+        descDisplay.classList.add('forecastPara');
+        weatherEmoji.classList.add('forecastPara');
 
         forecastDaily.appendChild(dateDisplay);
         forecastDaily.appendChild(tempDisplay);
