@@ -75,6 +75,7 @@
 .forecastParent{
     @apply
      mt-10
+     mb-5
 }
 
 .forecastPara{
@@ -84,4 +85,10 @@
     text-white
     font-mono
     bg-sky-700
+}
+
+
+.removeDropDown{
+    @apply
+     hidden
 }
