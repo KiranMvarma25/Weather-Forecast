@@ -173,7 +173,8 @@ function displayWeatherInfo(data){                // weatherData or data has all
     console.log(data);
                                                   // So we had created an object type Variable.
     const { name: city,                           // We need to get the correct object names first of all by fetching the data and to observe the names of the object for Example {city:New York}.
-        main: { temp, humidity },                 
+        main: { temp, humidity },
+        wind : { speed },                 
         weather: [{ description, id }] } = data;
     
     outputData.textContent = '';
@@ -193,18 +194,21 @@ function displayWeatherInfo(data){                // weatherData or data has all
     const cityDisplay = document.createElement('h1');
     const tempDisplay = document.createElement('p');
     const humidityDisplay = document.createElement('p');
+    const windDisplay = document.createElement('p');
     const descDisplay = document.createElement('p');
     const weatherEmoji = document.createElement('p');
 
     cityDisplay.textContent = `${city} (${_date}-${month}-${year})`;
     tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
+    windDisplay.textContent = `Wind: ${speed} M/s`;
     descDisplay.textContent = description;
     weatherEmoji.textContent = getWeatherEmoji(id);         // Here getWeatherEmoji function is invoked to display emoji.
 
     cityDisplay.classList.add('para');
     tempDisplay.classList.add('para');
     humidityDisplay.classList.add('para');
+    windDisplay.classList.add('para');
     descDisplay.classList.add('para');
     weatherEmoji.classList.add('para');
     
@@ -212,6 +216,7 @@ function displayWeatherInfo(data){                // weatherData or data has all
     outputData.appendChild(cityDisplay);
     outputData.appendChild(tempDisplay);
     outputData.appendChild(humidityDisplay);
+    outputData.appendChild(windDisplay);
     outputData.appendChild(descDisplay);
     outputData.appendChild(weatherEmoji);    
 }
@@ -232,6 +237,7 @@ function displayForecastInfo(data) {
         const date = new Date(forecast.dt_txt);        // dt = date and time.        
 
         const { main: { temp, humidity },                           // So we had created an object type Variable.
+                wind: {speed},
                 weather: [{ description, id }] } = forecast;        // We need to get the correct object names first of all by fetching the data and to observe the names of the object for Example {city:New York}.
 
         const forecastDaily = document.createElement('div');        // Creating parent for 5 day forecast child.
@@ -240,24 +246,28 @@ function displayForecastInfo(data) {
         const dateDisplay = document.createElement('p');
         const tempDisplay = document.createElement('p');
         const humidityDisplay = document.createElement('p');
+        const windDisplay = document.createElement('p');
         const descDisplay = document.createElement('p');
         const weatherEmoji = document.createElement('p');
 
         dateDisplay.textContent = date.toLocaleDateString();
         tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
         humidityDisplay.textContent = `Humidity: ${humidity}%`;
+        windDisplay.textContent = `Wind: ${speed} M/S`;
         descDisplay.textContent = description;
         weatherEmoji.textContent = getWeatherEmoji(id);         // Here getWeatherEmoji function is invoked to display emoji.
 
         dateDisplay.classList.add('forecastPara');
         tempDisplay.classList.add('forecastPara');
         humidityDisplay.classList.add('forecastPara');
+        windDisplay.classList.add('forecastPara');
         descDisplay.classList.add('forecastPara');
         weatherEmoji.classList.add('forecastPara');
 
         forecastDaily.appendChild(dateDisplay);
         forecastDaily.appendChild(tempDisplay);
         forecastDaily.appendChild(humidityDisplay);
+        forecastDaily.appendChild(windDisplay);
         forecastDaily.appendChild(descDisplay);
         forecastDaily.appendChild(weatherEmoji);
 
