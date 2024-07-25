@@ -95,13 +95,17 @@ form.addEventListener('submit', async event =>  {
     cityInput.value='';
     child.classList.add('childDropDown')
     parent.classList.add('parentDropDown');
+    
     parent.appendChild(child);
+
     
     if(city != ''){                                              // If empty is entered dropdown is not created.
         dropdownData();                                         // City name invocation is coded here to display after the data is added, intially not to display the empty dropdown.          
     }
 
     useSearchedDropDownCity(child);                         // After the city names entered into the dropdown History, this function helps use us to have the access of searching the data there itself without being reentering the data.
+
+
 });
 
 
@@ -113,6 +117,7 @@ function dropdownData() {                                   // Entered city name
         
     })
 }
+
 
 
 function useSearchedDropDownCity(child) {                   // With this, if we click on the data from dropdown (history) it will go to the input field,cleared and it will shows the clicked data from dropdown history.
@@ -138,9 +143,9 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
 
 
 
-
 async function getWeatherData(city) {
-    const API = "078092d86e224e14a642a355262f0195";
+    // const API = "078092d86e224e14a642a355262f0195";
+    const API = "da047c990502641398390859c447b121";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}`;   // City passed an argument to this function, city and key is paased into this url and it fetches all the data.
     const response = await fetch(apiUrl);
     if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
@@ -190,13 +195,12 @@ function displayWeatherInfo(data){                // weatherData or data has all
     // dayMonthYearChild.textContent = `${day}-${month}-${year}`;
     // outputData.classList.add('para');
     
-    
     const cityDisplay = document.createElement('h1');
     const tempDisplay = document.createElement('p');
     const humidityDisplay = document.createElement('p');
     const windDisplay = document.createElement('p');
     const descDisplay = document.createElement('p');
-    const weatherEmoji = document.createElement('p');
+    const weatherEmoji = document.createElement('h1');
 
     cityDisplay.textContent = `${city} (${_date}-${month}-${year})`;
     tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
@@ -248,7 +252,7 @@ function displayForecastInfo(data) {
         const humidityDisplay = document.createElement('p');
         const windDisplay = document.createElement('p');
         const descDisplay = document.createElement('p');
-        const weatherEmoji = document.createElement('p');
+        const weatherEmoji = document.createElement('h4');
 
         dateDisplay.textContent = date.toLocaleDateString();
         tempDisplay.textContent = `Temperature: ${(temp - 273.15).toFixed(2)}°C`;   // Temp is fetched in Kelvin this is the formula to convert it into Celsius and ° is created by using alt + 0176 and toFixed is used to get upto 2 decimal points.
