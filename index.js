@@ -60,6 +60,54 @@ const parent = document.getElementById('parent');
 const outputForecastData = document.getElementById('outputForecastData');
 
 
+const currentLocationButton = document.getElementById('currentLocation');
+
+
+// simple is that writing the same code mostly for the current location functionality, change in url to get the data by lat and lon.
+
+currentLocationButton.addEventListener('click', function(event) {       // To get data by current location, by using latitude and longitude is the Good one.
+    event.preventDefault();
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(currentLocation);      // lat and lon coordinates will be send to the displayCurrentLocationData and it will be the data.
+    }
+    else{
+        window.alert("Cannot Retrieve");
+    }
+})
+
+
+function currentLocation(position) {
+
+    const lat = position.coords.latitude;                               // storing coordinates in varaiable and passing it to another function to get the data.
+    const lon = position.coords.longitude;
+    
+    displayCurrentLocationData(lat, lon);
+}
+
+async function displayCurrentLocationData(lat, lon) {
+    const apiKey = '078092d86e224e14a642a355262f0195';
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    try {
+        const weatherResponse = await fetch(weatherUrl);
+        if (!weatherResponse.ok) {
+            throw new Error("Could not fetch weather data");
+        }
+        const weatherData = await weatherResponse.json();
+        displayWeatherInfo(weatherData);
+
+        const forecastResponse = await fetch(forecastUrl);
+        if (!forecastResponse.ok) {
+            throw new Error("Could not fetch forecast data");
+        }
+        const forecastData = await forecastResponse.json();
+        displayForecastInfo(forecastData);
+    } catch (error) {
+        console.log(error);
+        displayError("Could not fetch weather data");
+    }
+}
+
 form.addEventListener('submit', async event =>  {
     event.preventDefault();                                          // Displays the output, if we not use this, data will be displayed only for a 0.01sec.
     const city = cityInput.value;    
