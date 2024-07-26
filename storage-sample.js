@@ -40,13 +40,13 @@
 
 
 
-const cityName = "New York";
+// const cityName = "New York";
 
-const API = "078092d86e224e14a642a355262f0195";
+// const API = "078092d86e224e14a642a355262f0195";
 
 
-const url = fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName} &appid=${API}`)
-             .then(response => response.json().then(result => console.log(result)));
+// const url = fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName} &appid=${API}`)
+//              .then(response => response.json().then(result => console.log(result)));
 
 // const cityName = "New York";
 
