@@ -63,6 +63,45 @@ const outputForecastData = document.getElementById('outputForecastData');
 const currentLocationButton = document.getElementById('currentLocation');
 
 
+//  Displays some City Names continuosly.
+const displayCityNames = document.getElementById('displayCityNames');
+displayCityNames.classList.add('displayCityNames');
+
+
+setInterval(() => {
+    displayCityNames.textContent="New York";
+},1000);
+
+setInterval(()=>{
+    displayCityNames.textContent='Hyderabad';
+},2000);
+
+
+setInterval(()=>{
+    displayCityNames.textContent='London';
+},3000);
+
+
+setInterval(()=>{
+    displayCityNames.textContent='Sydney';
+},4000);
+
+
+setInterval(()=>{
+    displayCityNames.textContent='Pennsylvania';
+},5000);
+
+
+setInterval(()=>{
+    displayCityNames.textContent='Tokyo';
+},6000);
+
+
+setInterval(()=>{
+    displayCityNames.textContent='Bengaluru';
+},7000);
+
+
 // simple is that writing the same code mostly for the current location functionality, change in url to get the data by lat and lon.
 
 currentLocationButton.addEventListener('click', function(event) {       // To get data by current location, by using latitude and longitude is the Good one.
@@ -85,7 +124,8 @@ function currentLocation(position) {
 }
 
 async function displayCurrentLocationData(lat, lon) {
-    const apiKey = '078092d86e224e14a642a355262f0195';
+    //const apiKey = '078092d86e224e14a642a355262f0195';
+    const apiKey = "da047c990502641398390859c447b121";
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     try {
@@ -107,6 +147,9 @@ async function displayCurrentLocationData(lat, lon) {
         displayError("Could not fetch weather data");
     }
 }
+
+
+
 
 form.addEventListener('submit', async event =>  {
     event.preventDefault();                                          // Displays the output, if we not use this, data will be displayed only for a 0.01sec.
@@ -192,8 +235,9 @@ function useSearchedDropDownCity(child) {                   // With this, if we 
 
 
 async function getWeatherData(city) {
-    // const API = "078092d86e224e14a642a355262f0195";
+    //const API = "078092d86e224e14a642a355262f0195";
     const API = "da047c990502641398390859c447b121";
+    //const API = "20cf6d47e6ca1eef15066909958f73f0";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}`;   // City passed an argument to this function, city and key is paased into this url and it fetches all the data.
     const response = await fetch(apiUrl);
     if (!response.ok) {                                                                 // If there is any problem with the url if prints the below statement.
@@ -208,7 +252,8 @@ async function getWeatherData(city) {
 
 async function getForecastData(city){
    
-    const API = "078092d86e224e14a642a355262f0195";                                            // Key of Url
+    const API = "da047c990502641398390859c447b121";
+    //const API = "078092d86e224e14a642a355262f0195";                                            // Key of Url
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}`;    // Url of 5 day Forecast Data.
    
     const response = await fetch(apiUrl);
@@ -244,10 +289,10 @@ function displayWeatherInfo(data){                // weatherData or data has all
     // outputData.classList.add('para');
     
     const cityDisplay = document.createElement('h1');
-    const tempDisplay = document.createElement('p');
-    const humidityDisplay = document.createElement('p');
-    const windDisplay = document.createElement('p');
-    const descDisplay = document.createElement('p');
+    const tempDisplay = document.createElement('h2');
+    const humidityDisplay = document.createElement('h2');
+    const windDisplay = document.createElement('h2');
+    const descDisplay = document.createElement('h2');
     const weatherEmoji = document.createElement('h1');
 
     cityDisplay.textContent = `${city} (${_date}-${month}-${year})`;
