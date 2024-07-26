@@ -722,7 +722,9 @@ h3 {
     margin-top: 0.75rem;
     margin-right: 0.5rem;
     width: 24rem;
-    padding: 0.75rem;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 
@@ -851,7 +853,7 @@ h3 {
   --scrollbar-thumb: #bfdbfe;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .parentDropDown {
     width: 24rem;
   }
