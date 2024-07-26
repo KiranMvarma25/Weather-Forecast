@@ -51,3 +51,11 @@ key points :
 16. We need to set the condition according to it.
 
 17. Added styles to the Forecast Data.
+
+18. By using some in-build functions, created the option of search by current location.
+
+19. Made adjustments according to different screen sizes.
+
+20. Styled all parts.
+
+21. Created an Sample display, shows some city names.
