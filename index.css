@@ -20,11 +20,12 @@
 
 .cityInput{
     @apply
-     md:p-3
+     md:p-2
      rounded-md
      md:mt-3
      md:mr-2
      md:w-96
+     md:text-xl
      font-mono
 }
 
@@ -71,7 +72,7 @@
     scrollbar-thumb-blue-200
     scrollbar-track-transparent
     hidden
-    lg:w-96
+    md:w-96
 }
 
 .childDropDown{
